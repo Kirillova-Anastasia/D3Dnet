@@ -60,17 +60,6 @@ def main(dataset_name):
     PSNR_dataset = []
     SSIM_dataset = []
 
-    if dataset_name == 'Vid4' or dataset_name == 'SPMC-11':
-        video_list = os.listdir(opt.test_dataset_dir + '/' + dataset_name)
-        for i in range(0, len(video_list)):
-            video_name = video_list[i]
-            test_set = TestSetLoader(opt.test_dataset_dir + '/' + dataset_name + '/' + video_name, scale_factor=opt.scale_factor)
-            test_loader = DataLoader(dataset=test_set, num_workers=1, batch_size=1, shuffle=False)
-            psnr, ssim = demo_test(net, test_loader, opt.scale_factor, dataset_name, video_name)
-            PSNR_dataset.append(psnr)
-            SSIM_dataset.append(ssim)
-        print(dataset_name + ' psnr: ' + str(float(np.array(PSNR_dataset).mean())) + '  ssim: ' + str(float(np.array(SSIM_dataset).mean())))
-
     if dataset_name == 'Vimeo':
         with open(opt.test_dataset_dir + '/' + dataset_name + '/sep_testlist.txt', 'r') as f:
             video_list = f.read().splitlines()
@@ -83,6 +72,18 @@ def main(dataset_name):
             SSIM_dataset.append(ssim)
         print(dataset_name + ' psnr: ' + str(float(np.array(PSNR_dataset).mean())) + '  ssim: ' + str(float(np.array(SSIM_dataset).mean())))
 
+    else:
+        video_list = os.listdir(opt.test_dataset_dir + '/' + dataset_name)
+        for i in range(0, len(video_list)):
+            video_name = video_list[i]
+            test_set = TestSetLoader(opt.test_dataset_dir + '/' + dataset_name + '/' + video_name, scale_factor=opt.scale_factor)
+            test_loader = DataLoader(dataset=test_set, num_workers=1, batch_size=1, shuffle=False)
+            psnr, ssim = demo_test(net, test_loader, opt.scale_factor, dataset_name, video_name)
+            PSNR_dataset.append(psnr)
+            SSIM_dataset.append(ssim)
+        print(dataset_name + ' psnr: ' + str(float(np.array(PSNR_dataset).mean())) + '  ssim: ' + str(float(np.array(SSIM_dataset).mean())))
+
+        
 if __name__ == '__main__':
     for i in range(len(opt.datasets)):
         dataset = opt.datasets[i]
