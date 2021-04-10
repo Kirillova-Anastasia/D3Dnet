@@ -34,8 +34,8 @@ def demo_test(net, test_loader, scale_factor, dataset_name):
                 os.makedirs(opt.result_dir + '/' + dataset_name)
         
              ## save rgb images
-            SR_buicbic[:, 0, :, :] = SR[:, 0, :, :].cpu()
-            SR_rgb = (ycbcr2rgb(SR_buicbic[0,:,:,:].permute(2,1,0))).permute(2,1,0)
+            SR_bicubic[:, 0, :, :] = SR[:, 0, :, :].cpu()
+            SR_rgb = (ycbcr2rgb(SR_bicubic[0,:,:,:].permute(2,1,0))).permute(2,1,0)
             SR_rgb = torch.clamp(SR_rgb, 0, 1)
             SR_img = transforms.ToPILImage()(SR_rgb)
             SR_img.save(opt.result_dir + '/' + dataset_name + '/frame_' + str(idx_iter+1).rjust(3, '0') + '.png')
