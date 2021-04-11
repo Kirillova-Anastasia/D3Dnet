@@ -8,6 +8,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch.backends.cudnn as cudnn
 import argparse, os
+import time
 
 parser = argparse.ArgumentParser(description="PyTorch D3Dnet")
 parser.add_argument("--scale_factor", type=int, default=4, help="scale")
@@ -53,9 +54,14 @@ def main(dataset_name):
     demo_test(net, test_loader, opt.scale_factor, dataset_name)
         
 if __name__ == '__main__':
+    with open(os.path.join(opt.result_dir, 'D3Dnet.txt'), 'a') as f:
+        f.write('OK ' + opt.dataset_name + '\n')
+    begin = time.time()
+
+    print(opt.dataset_name)
     dataset = opt.dataset
-    import time
-    start = time.time()
     main(dataset)
+   
     end = time.time()
-    print(end-start)
+    with open(os.path.join(opt.result_dir, 'D3Dnet.txt'), 'a') as f:
+        f.write('Full time on {}: {}\n'.format(opt.video_name, end - begin))
