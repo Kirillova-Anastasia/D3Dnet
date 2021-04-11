@@ -25,7 +25,7 @@ torch.cuda.set_device(opt.gpu)
 
 def demo_test(net, test_loader, scale_factor, dataset_name):
     with torch.no_grad():
-        for idx_iter, (LR, SR_buicbic) in enumerate(test_loader):
+        for idx_iter, (LR, SR_bicubic) in enumerate(test_loader):
             LR = Variable(LR).cuda()
             SR = net(LR)
             SR = torch.clamp(SR, 0, 1)
