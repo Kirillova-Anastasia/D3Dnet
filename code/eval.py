@@ -55,13 +55,13 @@ def main(dataset_name):
         
 if __name__ == '__main__':
     with open(os.path.join(opt.result_dir, 'D3Dnet.txt'), 'a') as f:
-        f.write('OK ' + opt.dataset_name + '\n')
+        f.write('OK ' + opt.dataset + '\n')
     begin = time.time()
 
-    print(opt.dataset_name)
+    print(opt.dataset)
     dataset = opt.dataset
     main(dataset)
    
     end = time.time()
     with open(os.path.join(opt.result_dir, 'D3Dnet.txt'), 'a') as f:
-        f.write('Full time on {}: {}\n'.format(opt.video_name, end - begin))
+        f.write('Full time on {}: {}\n'.format(opt.dataset, end - begin))
