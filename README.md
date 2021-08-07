@@ -1,3 +1,7 @@
+# Running on your own dataset
+1) We used `pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel` docker. Directory with input images is mounted as `/dataset`, results will be saved in `/output`, directory with code is mounted as `/D3Dnet`. You should set  `--shm-size 8G` parameter.
+2) Enter directory `/D3Dnet`. See `D3Dnet.sh` script for installation commands and running example.
+
 # Deformable 3D Convolution for Video Super-Resolution
 Pytorch implementation of deformable 3D convolution network (D3Dnet). [<a href="https://arxiv.org/pdf/2004.02803.pdf">PDF</a>] <br><br>
 
